@@ -25,9 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.naming.*;
 
-/**
- * FIXME should be JBossJndiContextBinder
- * 
+/** 
  * @author Tobias Sarnowski
  */
 public class JnpContextBinderUtility implements JndiContextBinderUtility {
@@ -42,12 +40,16 @@ public class JnpContextBinderUtility implements JndiContextBinderUtility {
 
     @Override
     public void bind(String jndiName, Object who) throws NamingException {
+        LOG.debug("Binding {} to {}", who, jndiName);
         createSubcontext(jndiName);
         context.get().bind(jndiName, who);
     }
 
     @Override
     public void bind(String jndiName, Object who, Class<?> classType) throws NamingException {
+        LOG.debug("Binding {} to {} as static reference with type {}", new Object[] {
+                who, jndiName, classType
+        });
         createSubcontext(jndiName);
 
         NonSerializableFactory.bind(jndiName, who);
