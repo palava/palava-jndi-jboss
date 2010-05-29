@@ -13,6 +13,13 @@
 	<scm>
 		<developerConnection>scm:svn:https://palava.svn.cosmocode.de/palava-jndi-jboss/trunk</developerConnection>
 	</scm>
+	<repositories>
+		<repository>
+			<id>cosmocode-public</id>
+			<name>CosmoCode Public Maven Repository</name>
+			<url>http://mvn.cosmocode.de/</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>de.cosmocode.palava</groupId>
@@ -20,9 +27,9 @@
 			<version>[1.0,2)</version>
 		</dependency>
 		<dependency>
-            <groupId>org.jboss.naming</groupId>
-            <artifactId>jnpserver</artifactId>
-            <version>5.0.3.GA</version>
-        </dependency>
+			<groupId>org.jboss.naming</groupId>
+			<artifactId>jnpserver</artifactId>
+			<version>5.0.3.GA</version>
+		</dependency>
 	</dependencies>
 </project>
