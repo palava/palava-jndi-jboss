@@ -16,19 +16,29 @@
 
 package de.cosmocode.palava.jndi.jnp;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import de.cosmocode.palava.jndi.JndiContextBinderUtility;
+import javax.naming.Context;
+import javax.naming.Name;
+import javax.naming.NameNotFoundException;
+import javax.naming.NamingException;
+import javax.naming.Reference;
+import javax.naming.StringRefAddr;
+
 import org.jboss.util.naming.NonSerializableFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.naming.*;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+
+import de.cosmocode.palava.jndi.JndiContextBinderUtility;
 
 /** 
+ * Jnp {@link JndiContextBinderUtility} implementation.
+ * 
  * @author Tobias Sarnowski
  */
 public class JnpContextBinderUtility implements JndiContextBinderUtility {
+    
     private static final Logger LOG = LoggerFactory.getLogger(JnpContextBinderUtility.class);
 
     private Provider<Context> context;
@@ -48,7 +58,7 @@ public class JnpContextBinderUtility implements JndiContextBinderUtility {
     @Override
     public void bind(String jndiName, Object who, Class<?> classType) throws NamingException {
         LOG.debug("Binding {} to {} as static reference with type {}", new Object[] {
-                who, jndiName, classType
+            who, jndiName, classType
         });
         createSubcontext(jndiName);
 
@@ -78,4 +88,5 @@ public class JnpContextBinderUtility implements JndiContextBinderUtility {
             name = name.getSuffix(1);
         }
     }
+    
 }

@@ -19,10 +19,14 @@ package de.cosmocode.palava.jndi.jnp;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Singleton;
+
 import de.cosmocode.palava.jndi.JndiContextBinderUtility;
 import de.cosmocode.palava.jndi.JndiContextProvider;
 
 /**
+ * Binds {@link JndiContextProvider} to {@link LocalJndiServer} and
+ * {@link JndiContextBinderUtility} to {@link JnpContextBinderUtility}.
+ * 
  * @author Tobias Sarnowski
  */
 public final class LocalJndiServerModule implements Module {

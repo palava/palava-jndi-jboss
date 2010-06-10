@@ -16,20 +16,22 @@
 
 package de.cosmocode.palava.jndi.jnp;
 
-import de.cosmocode.palava.core.lifecycle.Disposable;
-import de.cosmocode.palava.core.lifecycle.Initializable;
-import de.cosmocode.palava.core.lifecycle.LifecycleException;
-import de.cosmocode.palava.jndi.JndiContextProvider;
+import java.util.Properties;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
 import org.jnp.interfaces.NamingContext;
 import org.jnp.server.Main;
 import org.jnp.server.NamingServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import java.util.Properties;
+import de.cosmocode.palava.core.lifecycle.Disposable;
+import de.cosmocode.palava.core.lifecycle.Initializable;
+import de.cosmocode.palava.core.lifecycle.LifecycleException;
+import de.cosmocode.palava.jndi.JndiContextProvider;
 
 /**
  * Installs a local jndi server provided by org.jnp.
@@ -38,6 +40,7 @@ import java.util.Properties;
  * @author Willi Schoenborn
  */
 final class LocalJndiServer implements Initializable, Disposable, JndiContextProvider {
+    
     private static final Logger LOG = LoggerFactory.getLogger(LocalJndiServer.class);
     
     private final Main main;
@@ -74,17 +77,18 @@ final class LocalJndiServer implements Initializable, Disposable, JndiContextPro
         main.stop();
     }
 
-	@Override
-	public Context get() {
-		try {
+    @Override
+    public Context get() {
+        try {
             final Properties props = new Properties();
             props.put(Context.INITIAL_CONTEXT_FACTORY, "org.jnp.interfaces.NamingContextFactory");
             props.put("java.naming.factory.url.pkgs", "org.jboss.naming:org.jnp.interfaces");
-            Context ctx = new InitialContext(props);
+            final Context ctx = new InitialContext(props);
             LOG.trace("Returning Context {}", ctx);
             return ctx;
         } catch (NamingException e) {
             throw new IllegalStateException(e);
         }
-	}
+    }
+    
 }
